@@ -1,0 +1,1 @@
+# ha-addon-dotnet-mqtt-project-template
