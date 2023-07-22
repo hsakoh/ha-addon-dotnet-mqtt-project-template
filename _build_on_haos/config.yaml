@@ -1,0 +1,30 @@
+name: "EXAMPLE-Mqtt"
+description: "Homa Assistant MQTT .NET EXAMPLE Add-on"
+version: "1.0.0"
+slug: "example_mqtt"
+startup: application
+boot: manual
+init: false
+arch:
+  - aarch64
+  - amd64
+services:
+  - 'mqtt:need'
+options:
+  Interval: '00:01:10'
+  Mqtt: 
+    Host: ''
+    Port: 1883
+    Id: ''
+    Pw: ''
+    Tls: false
+  LogLevel: 'Trace'
+schema:
+  Interval: str
+  Mqtt: 
+    Host: str
+    Port: "int(0,65535)"
+    Id: str
+    Pw: password
+    Tls: bool
+  LogLevel: list(Trace|Debug|Information|Warning|Error|Critical|None)
