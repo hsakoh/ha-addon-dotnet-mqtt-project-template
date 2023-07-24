@@ -1,6 +1,6 @@
 name: "EXAMPLE-Mqtt"
-description: "Homa Assistant MQTT .NET EXAMPLE Add-on"
-version: "1.0.0"
+description: "Home Assistant MQTT .NET EXAMPLE Add-on"
+version: "1.0.1"
 slug: "example_mqtt"
 startup: application
 boot: manual
@@ -13,6 +13,7 @@ services:
 options:
   Interval: '00:01:10'
   Mqtt: 
+    AutoConfig: true
     Host: ''
     Port: 1883
     Id: ''
@@ -22,9 +23,10 @@ options:
 schema:
   Interval: str
   Mqtt: 
-    Host: str
-    Port: "int(0,65535)"
-    Id: str
-    Pw: password
-    Tls: bool
+    AutoConfig: bool
+    Host: str?
+    Port: "int(0,65535)?"
+    Id: str?
+    Pw: password?
+    Tls: bool?
   LogLevel: list(Trace|Debug|Information|Warning|Error|Critical|None)

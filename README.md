@@ -23,7 +23,7 @@ There are three different methods
 
 docker build `
   "./_compile_self" `
-  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.0 `
+  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.1 `
   --build-arg BUILD_FROM="homeassistant/aarch64-base:latest" `
   --build-arg BUILD_ARCH="aarch64" `
   --progress=plain `
@@ -31,15 +31,15 @@ docker build `
 
 docker build `
   "./_compile_self" `
-  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.0 `
+  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.1 `
   --build-arg BUILD_FROM="homeassistant/amd64-base:latest" `
   --build-arg BUILD_ARCH="amd64" `
   --progress=plain `
   --label org.opencontainers.image.source=https://github.com/EXAMPLE_GIT_HUB_USER/examplemqtt-mqtt
 
 echo EXAMPLE_GIT_HUB_PERSONAL_ACCESS_TOKEN | docker login ghcr.io -u EXAMPLE_GIT_HUB_USER --password-stdin
-docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.0
-docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.0
+docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.1
+docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.1
 ```
 
 ## Options
@@ -47,11 +47,12 @@ docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.0
 |Key|Default|Description|
 |--|--|--|
 |Interval|`00:01:10`|TimeSpan(`HH:mm:ss`)|
+|Mqtt:UseAutoConfig|true|Add-on users using the default Home Assistant Mosquitto integration can set this value to True, as connection details can be detected via the Home Assistant Supervisor API.|
 |Mqtt:Host|-||
-|Mqtt:Port|`1883`||
+|Mqtt:Port|-||
 |Mqtt:Id|-||
 |Mqtt:Pw|-||
-|Mqtt:Tls|`false`||
+|Mqtt:Tls|-||
 |LogLevel|`Trace`|`Trace`,`Debug`,`Information`,`Warning`,`Error`,`Critical`,`None`|
 
 ## Information for developers (& run outside of add-ons)

@@ -135,8 +135,8 @@ public class Worker : BackgroundService
     {
         _logger.LogTrace("Trace:{TimeStamp}", DateTimeOffset.UtcNow);
         _logger.LogDebug("Debug:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogInformation("nformation:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogWarning("arning:{TimeStamp}", DateTimeOffset.UtcNow);
+        _logger.LogInformation("Information:{TimeStamp}", DateTimeOffset.UtcNow);
+        _logger.LogWarning("Warning:{TimeStamp}", DateTimeOffset.UtcNow);
         _logger.LogError("Error:{TimeStamp}", DateTimeOffset.UtcNow);
         _logger.LogCritical("Critical:{TimeStamp}", DateTimeOffset.UtcNow);
 
