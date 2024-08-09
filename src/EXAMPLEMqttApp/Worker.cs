@@ -3,28 +3,17 @@ using Microsoft.Extensions.Options;
 
 namespace EXAMPLEMqttApp;
 
-public class Worker : BackgroundService
-{
-    private readonly ILogger<Worker> _logger;
-    private readonly MqttService _mqttService;
-    private readonly IOptionsMonitor<EXAMPLEOptions> _optionsMonitor;
-
-    public Worker(
-        ILogger<Worker> logger
+public class Worker(
+    ILogger<Worker> logger
         , MqttService mqttService
         , IOptionsMonitor<EXAMPLEOptions> optionsMonitor
-        )
-    {
-        _logger = logger;
-        _mqttService = mqttService;
-        _optionsMonitor = optionsMonitor;
-    }
-
-    private string ExampleDeviceId = "example";
+        ) : BackgroundService
+{
+    private readonly string ExampleDeviceId = "example";
 
     public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        await _mqttService.StartAsync();
+        await mqttService.StartAsync();
 
         //Initialize MQTT Device
         await PublishDeviceConfigsAsync();
@@ -37,7 +26,7 @@ public class Worker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         //Timer Loop
-        var timer = new PeriodicTimer(_optionsMonitor.CurrentValue.Interval);
+        var timer = new PeriodicTimer(optionsMonitor.CurrentValue.Interval);
         while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             await PublishDeviceStatusAsync();
@@ -46,7 +35,7 @@ public class Worker : BackgroundService
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        await _mqttService.StopAsync();
+        await mqttService.StopAsync();
         await base.StopAsync(cancellationToken);
     }
 
@@ -106,7 +95,7 @@ public class Worker : BackgroundService
                 name = "ExampleDevice",
             },
         };
-        await _mqttService.PublishAsync($"homeassistant/sensor/{type}_{ExampleDeviceId}/config", payload, true);
+        await mqttService.PublishAsync($"homeassistant/sensor/{type}_{ExampleDeviceId}/config", payload, true);
     }
 
     private async Task SendButtonConfigAsync(string name, string device_class)
@@ -125,7 +114,7 @@ public class Worker : BackgroundService
                 name = "ExampleDevice",
             },
         };
-        await _mqttService.PublishAsync($"homeassistant/button/btn_{ExampleDeviceId}/config", payload, true);
+        await mqttService.PublishAsync($"homeassistant/button/btn_{ExampleDeviceId}/config", payload, true);
     }
     #endregion
 
@@ -133,14 +122,14 @@ public class Worker : BackgroundService
 
     public async Task PublishDeviceStatusAsync()
     {
-        _logger.LogTrace("Trace:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogDebug("Debug:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogInformation("Information:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogWarning("Warning:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogError("Error:{TimeStamp}", DateTimeOffset.UtcNow);
-        _logger.LogCritical("Critical:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogTrace("Trace:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogDebug("Debug:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogInformation("Information:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogWarning("Warning:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogError("Error:{TimeStamp}", DateTimeOffset.UtcNow);
+        logger.LogCritical("Critical:{TimeStamp}", DateTimeOffset.UtcNow);
 
-        await _mqttService.PublishAsync($"homeassistant/sensor/{ExampleDeviceId}/state", new
+        await mqttService.PublishAsync($"homeassistant/sensor/{ExampleDeviceId}/state", new
         {
             serialnumber = ExampleDeviceId,
             example_battery_value = new Random().Next(0, 100),
@@ -152,9 +141,9 @@ public class Worker : BackgroundService
 
     private void SubscribeCommandTopic()
     {
-        _mqttService.Subscribe($"homeassistant/button/{ExampleDeviceId}/cmd", async (payload) =>
+        mqttService.Subscribe($"homeassistant/button/{ExampleDeviceId}/cmd", async (payload) =>
         {
-            _logger.LogInformation("Receive:{payload}", payload);
+            logger.LogInformation("Receive:{payload}", payload);
             if (payload == "do")
             {
                 await PublishDeviceStatusAsync();

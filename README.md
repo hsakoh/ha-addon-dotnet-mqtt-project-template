@@ -3,6 +3,8 @@
 Project template for developing a Home Assistant add-on in C# .<br>
 Application to deliver device and sensor to MQTT integration
 
+![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armv7 Architecture][armv7-shield]
+
 ## How to install add-on
 
 There are three different methods
@@ -23,23 +25,32 @@ There are three different methods
 
 docker build `
   "./_compile_self" `
-  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.2 `
-  --build-arg BUILD_FROM="homeassistant/aarch64-base:latest" `
+  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.3 `
+  --build-arg BUILD_FROM="ghcr.io/home-assistant/aarch64-base:latest" `
   --build-arg BUILD_ARCH="aarch64" `
   --progress=plain `
   --label org.opencontainers.image.source=https://github.com/EXAMPLE_GIT_HUB_USER/examplemqtt-mqtt
 
 docker build `
   "./_compile_self" `
-  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.2 `
-  --build-arg BUILD_FROM="homeassistant/amd64-base:latest" `
+  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.3 `
+  --build-arg BUILD_FROM="ghcr.io/home-assistant/amd64-base:latest" `
   --build-arg BUILD_ARCH="amd64" `
   --progress=plain `
   --label org.opencontainers.image.source=https://github.com/EXAMPLE_GIT_HUB_USER/examplemqtt-mqtt
 
+docker build `
+  "./_compile_self" `
+  -t ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-armv7:1.0.3 `
+  --build-arg BUILD_FROM="ghcr.io/home-assistant/armv7-base:latest" `
+  --build-arg BUILD_ARCH="armv7" `
+  --progress=plain `
+  --label org.opencontainers.image.source=https://github.com/EXAMPLE_GIT_HUB_USER/examplemqtt-mqtt
+
 echo EXAMPLE_GIT_HUB_PERSONAL_ACCESS_TOKEN | docker login ghcr.io -u EXAMPLE_GIT_HUB_USER --password-stdin
-docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.2
-docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.2
+docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-aarch64:1.0.3
+docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.3
+docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-armv7:1.0.3
 ```
 
 ## Options
@@ -68,3 +79,14 @@ docker push ghcr.io/EXAMPLE_GIT_HUB_USER/examplemqtt-amd64:1.0.2
 ![mqtt_addon](_images/addon-1.png)
 ![mqtt_addon](_images/addon-2.png)
 ![mqtt_addon](_images/addon-3.png)
+
+[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
+[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+[no-aarch64-shield]: https://img.shields.io/badge/aarch64-no-red.svg
+[no-amd64-shield]: https://img.shields.io/badge/amd64-no-red.svg
+[no-armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
+[no-armv7-shield]: https://img.shields.io/badge/armv7-no-red.svg
+[no-i386-shield]: https://img.shields.io/badge/i386-no-red.svg

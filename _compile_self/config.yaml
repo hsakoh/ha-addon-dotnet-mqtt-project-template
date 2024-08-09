@@ -1,6 +1,6 @@
 name: "EXAMPLE-Mqtt"
 description: "Home Assistant MQTT .NET EXAMPLE Add-on"
-version: "1.0.2"
+version: "1.0.3"
 slug: "example_mqtt"
 startup: application
 boot: manual
@@ -8,6 +8,7 @@ init: false
 arch:
   - aarch64
   - amd64
+  - armv7
 services:
   - 'mqtt:need'
 options:

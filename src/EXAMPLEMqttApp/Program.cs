@@ -15,7 +15,7 @@ public class Program
             {
                 var config = context.Configuration.Get<CommonOptions>();
                 loggingBuilder
-                .AddFilter(string.Empty, config.LogLevel)
+                .AddFilter(string.Empty, config!.LogLevel)
                 .AddSimpleConsole(options =>
                 {
                     options.IncludeScopes = true;
